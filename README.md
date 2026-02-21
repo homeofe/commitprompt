@@ -92,3 +92,5 @@ Both tools follow the same 4-module pattern: reader, parser, builder, CLI.
 ## License
 
 MIT
+
+<!-- E2E test marker -->

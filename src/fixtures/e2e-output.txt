@@ -1,0 +1,58 @@
+=== E2E TEST - 2026-02-21 ===
+Staged change: echo "<!-- E2E test marker -->" >> README.md && git add README.md
+
+=== COMMIT MODE (node dist/index.js) ===
+# Commit Message Request
+
+## Changed Files
+- README.md (+2 -0)
+
+## Diff Summary
+```diff
+diff --git a/README.md b/README.md
+index c2d8b87..59f51aa 100644
+--- a/README.md
++++ b/README.md
+@@ -92,3 +92,5 @@ Both tools follow the same 4-module pattern: reader, parser, builder, CLI.
+ ## License
+ 
+ MIT
++
++<!-- E2E test marker -->
+
+```
+
+## Instructions
+Write a conventional commit message for these changes.
+Format: <type>(<scope>): <description>
+Types: feat, fix, docs, refactor, test, chore, ci, perf
+Keep the subject line under 72 characters.
+If the change is complex, add a body paragraph explaining WHY (not WHAT).
+
+=== PR MODE (node dist/index.js --mode pr) ===
+# PR Description Request
+
+## Changed Files
+- README.md (+2 -0)
+
+## Diff Summary
+```diff
+diff --git a/README.md b/README.md
+index c2d8b87..59f51aa 100644
+--- a/README.md
++++ b/README.md
+@@ -92,3 +92,5 @@ Both tools follow the same 4-module pattern: reader, parser, builder, CLI.
+ ## License
+ 
+ MIT
++
++<!-- E2E test marker -->
+
+```
+
+## Instructions
+Write a GitHub Pull Request description with:
+- A one-line summary (becomes the PR title)
+- A "What changed" section (bullet points)
+- A "Why" section (motivation)
+- A "How to test" section
