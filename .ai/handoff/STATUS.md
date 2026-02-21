@@ -9,7 +9,7 @@ Last updated: 2026-02-21
 | `tsc`        | (Verified) Clean | Strict mode, NodeNext, zero errors       |
 | `npm test`   | (Verified) 42/42 | 3 suites: diff-parser, prompt-builder, integration |
 | GitHub CI    | (Verified) Live  | `.github/workflows/ci.yml` on main       |
-| npm publish  | (Assumed) Pending | Scoped as `@elvatis_com/commitprompt`; run `npm publish --access=public`  |
+| npm publish  | (Verified) Live   | Published as `@elvatis_com/commitprompt@0.1.0` on npm                     |
 
 ## What Exists
 

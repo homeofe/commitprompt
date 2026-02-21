@@ -2,12 +2,9 @@
 
 ## Priority Order
 
-### 1. npm publish (MEDIUM - human required)
-- Package name: `@elvatis_com/commitprompt` (scoped, due to conflict with `commit-prompt`)
-- Run `npm login` as Emre (if not already logged in)
-- Run `npm publish --access=public` from project root
-- Verify at npmjs.com/package/@elvatis_com/commitprompt
-- After publish: update STATUS.md
+### ~~1. npm publish~~ (DONE)
+- Published as `@elvatis_com/commitprompt@0.1.0`
+- Live at: https://www.npmjs.com/package/@elvatis_com/commitprompt
 
 ### 2. --context flag enhancement (LOW)
 - Currently reads package.json name
@@ -34,3 +31,4 @@
 - [x] GitHub Actions CI live
 - [x] E2E test verified (output in src/fixtures/e2e-output.txt)
 - [x] AAHP handoff files created
+- [x] Published to npm as `@elvatis_com/commitprompt@0.1.0` (2026-02-21)

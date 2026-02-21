@@ -33,3 +33,17 @@ git diffs into AI prompts for commit messages, PR descriptions, and changelogs.
 ### E2E verified
 Ran against a real staged change (echo to README.md), verified all 3 modes produce
 valid structured prompts. Output saved in src/fixtures/e2e-output.txt.
+
+## 2026-02-21 - npm Publish
+
+### What happened
+- `npm publish` failed: package name `commitprompt` too similar to existing `commit-prompt`
+- Renamed to `@elvatis_com/commitprompt` (scoped under Elvatis npm org)
+- Updated `package.json`, `README.md`, and all handoff docs
+- Published as `@elvatis_com/commitprompt@0.1.0` by Emre (elvatis_com)
+- Live at: https://www.npmjs.com/package/@elvatis_com/commitprompt
+
+### Verify
+```bash
+npx @elvatis_com/commitprompt
+```
