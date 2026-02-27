@@ -8,11 +8,11 @@
   "quick_context": "commitprompt v0.1.0 published on npm. 59/59 tests passing. GitHub Actions and GitLab CI live. ESLint with typescript-eslint and custom no-em-dash rule configured. All tasks done.",
   "last_session": {
     "agent": "claude-code",
-    "duration_minutes": 5,
+    "duration_minutes": 2,
     "session_id": "eslint-setup",
     "phase": "maintenance",
     "commit": "54bbf76",
-    "timestamp": "2026-02-27T14:00:00.000Z"
+    "timestamp": "2026-02-27T14:12:58.298Z"
   },
   "tasks": {
     "T-003": {
@@ -37,7 +37,7 @@
       "created": "2026-02-28T00:00:00Z",
       "depends_on": [],
       "priority": "low",
-      "completed": "2026-02-27T14:00:00.000Z"
+      "completed": "2026-02-27T14:12:58.299Z"
     }
   },
   "next_task_id": 4,
