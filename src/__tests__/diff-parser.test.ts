@@ -14,6 +14,7 @@ const bugfixDiff = readFileSync(join(fixturesDir, 'bugfix.diff'), 'utf-8');
 const newFeatureDiff = readFileSync(join(fixturesDir, 'new-feature.diff'), 'utf-8');
 const docsOnlyDiff = readFileSync(join(fixturesDir, 'docs-only.diff'), 'utf-8');
 const multiFileDiff = readFileSync(join(fixturesDir, 'multi-file.diff'), 'utf-8');
+const gitlabCiDiff = readFileSync(join(fixturesDir, 'gitlab-ci.diff'), 'utf-8');
 
 describe('parseDiff - bugfix.diff', () => {
   it('detects src/error-extractor.ts as the changed file', () => {
@@ -116,6 +117,32 @@ describe('parseDiff - multi-file.diff (CI workflow)', () => {
   it('counts 27 additions and 0 deletions (new file, includes blank lines)', () => {
     const result = parseDiff(multiFileDiff);
     expect(result.totalAdditions).toBe(27);
+    expect(result.totalDeletions).toBe(0);
+  });
+});
+
+describe('parseDiff - gitlab-ci.diff (GitLab CI)', () => {
+  it('detects .gitlab-ci.yml as the changed file', () => {
+    const result = parseDiff(gitlabCiDiff);
+    const paths = result.files.map((f) => f.path);
+    expect(paths).toContain('.gitlab-ci.yml');
+  });
+
+  it('detects changeType as ci', () => {
+    const result = parseDiff(gitlabCiDiff);
+    expect(result.changeType).toBe('ci');
+  });
+
+  it('marks .gitlab-ci.yml as a new file', () => {
+    const result = parseDiff(gitlabCiDiff);
+    const ciFile = result.files.find((f) => f.path === '.gitlab-ci.yml');
+    expect(ciFile).toBeDefined();
+    expect(ciFile!.isNew).toBe(true);
+  });
+
+  it('counts 13 additions and 0 deletions', () => {
+    const result = parseDiff(gitlabCiDiff);
+    expect(result.totalAdditions).toBe(13);
     expect(result.totalDeletions).toBe(0);
   });
 });

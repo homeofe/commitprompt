@@ -15,6 +15,7 @@ const bugfixDiff = readFileSync(join(fixturesDir, 'bugfix.diff'), 'utf-8');
 const newFeatureDiff = readFileSync(join(fixturesDir, 'new-feature.diff'), 'utf-8');
 const docsOnlyDiff = readFileSync(join(fixturesDir, 'docs-only.diff'), 'utf-8');
 const multiFileDiff = readFileSync(join(fixturesDir, 'multi-file.diff'), 'utf-8');
+const gitlabCiDiff = readFileSync(join(fixturesDir, 'gitlab-ci.diff'), 'utf-8');
 
 describe('integration: bugfix.diff -> commit prompt', () => {
   it('produces a complete commit prompt containing real file names', () => {
@@ -114,5 +115,31 @@ describe('integration: multi-file.diff (CI workflow) -> commit prompt', () => {
     for (const section of sections) {
       expect(prompt).toContain(section);
     }
+  });
+});
+
+describe('integration: gitlab-ci.diff -> commit prompt', () => {
+  it('produces a prompt containing the GitLab CI file', () => {
+    const parsed = parseDiff(gitlabCiDiff);
+    const prompt = buildPrompt(parsed, gitlabCiDiff, 'commit');
+
+    expect(prompt).toContain('# Commit Message Request');
+    expect(prompt).toContain('.gitlab-ci.yml');
+    expect(prompt).toContain('## Changed Files');
+    expect(prompt).toContain('## Instructions');
+  });
+
+  it('changeType is ci for GitLab CI fixture', () => {
+    const parsed = parseDiff(gitlabCiDiff);
+    expect(parsed.changeType).toBe('ci');
+  });
+
+  it('marks .gitlab-ci.yml as new file with correct counts', () => {
+    const parsed = parseDiff(gitlabCiDiff);
+    expect(parsed.files).toHaveLength(1);
+    expect(parsed.files[0].path).toBe('.gitlab-ci.yml');
+    expect(parsed.files[0].isNew).toBe(true);
+    expect(parsed.totalAdditions).toBe(13);
+    expect(parsed.totalDeletions).toBe(0);
   });
 });

@@ -81,6 +81,15 @@ If the change is complex, add a body paragraph explaining WHY (not WHAT).
 | `--staged` | Explicit staged diff (same as default) | - |
 | `--context` | Include package.json name in output | - |
 
+## CI support
+
+The project includes CI configurations for both GitHub Actions and GitLab CI:
+
+- **GitHub Actions**: `.github/workflows/ci.yml` - runs type checking and tests on all branches
+- **GitLab CI**: `.gitlab-ci.yml` - same pipeline (type check + tests) using the `node:20` image
+
+The diff parser also recognizes both GitHub and GitLab CI file paths (`.github/`, `.gitlab/`, `.gitlab-ci.yml`) when detecting the `ci` change type.
+
 ## AAHP case study
 
 This tool was built using the [AAHP (AI-to-AI Handoff Protocol)](https://github.com/homeofe/AAHP).

@@ -1,0 +1,14 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: node:20
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+  script:
+    - npm ci
+    - npx tsc --noEmit
+    - npm test

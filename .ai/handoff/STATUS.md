@@ -1,14 +1,15 @@
 # STATUS.md - commitprompt
 
-Last updated: 2026-02-21
+Last updated: 2026-02-27
 
 ## Build Health
 
 | Check        | Status    | Notes                                          |
 | ------------ | --------- | ---------------------------------------------- |
 | `tsc`        | (Verified) Clean | Strict mode, NodeNext, zero errors       |
-| `npm test`   | (Verified) 42/42 | 3 suites: diff-parser, prompt-builder, integration |
+| `npm test`   | (Verified) 49/49 | 3 suites: diff-parser, prompt-builder, integration |
 | GitHub CI    | (Verified) Live  | `.github/workflows/ci.yml` on main       |
+| GitLab CI    | (Verified) Live  | `.gitlab-ci.yml` at project root          |
 | npm publish  | (Verified) Live   | Published as `@elvatis_com/commitprompt@0.1.0` on npm                     |
 
 ## What Exists
@@ -22,6 +23,7 @@ Last updated: 2026-02-21
 - `src/__tests__/integration.test.ts` - end-to-end tests using real fixtures
 - `src/fixtures/*.diff` - real diffs from github.com/homeofe/failprompt
 - `.github/workflows/ci.yml` - GitHub Actions CI
+- `.gitlab-ci.yml` - GitLab CI pipeline
 - `README.md` - installation and usage docs
 
 ## Verified Behaviors

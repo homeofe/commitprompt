@@ -109,9 +109,11 @@ function detectChangeType(
     return 'test';
   }
 
-  // Only CI files: .github/, ci.yml, .gitignore, .gitattributes
+  // Only CI files: .github/, .gitlab-ci.yml, .gitlab/, ci.yml, .gitignore, .gitattributes
   const isCiFile = (p: string): boolean =>
     p.includes('.github/') ||
+    p.includes('.gitlab/') ||
+    p === '.gitlab-ci.yml' ||
     /ci\.ya?ml$/.test(p) ||
     p === '.gitignore' ||
     p === '.gitattributes';

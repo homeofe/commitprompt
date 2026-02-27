@@ -1,0 +1,19 @@
+diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+new file mode 100644
+index 0000000..a1b2c3d
+--- /dev/null
++++ b/.gitlab-ci.yml
+@@ -0,0 +1,13 @@
++stages:
++  - test
++
++test:
++  stage: test
++  image: node:20
++  cache:
++    key: ${CI_COMMIT_REF_SLUG}
++    paths:
++      - node_modules/
++  script:
++    - npm ci
++    - npm test
