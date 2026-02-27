@@ -37,6 +37,13 @@ commitprompt --mode pr
 commitprompt --mode changelog
 ```
 
+### Include repo context
+
+```bash
+commitprompt --context
+# Adds a "## Context" section with project name (from package.json) and README intro
+```
+
 ### Read diff from a file
 
 ```bash
@@ -79,7 +86,7 @@ If the change is complex, add a body paragraph explaining WHY (not WHAT).
 | `--mode <commit\|pr\|changelog>` | Output format | `commit` |
 | `--diff <path>` | Read diff from file instead of git | - |
 | `--staged` | Explicit staged diff (same as default) | - |
-| `--context` | Include package.json name in output | - |
+| `--context` | Include repo context (package.json name, README intro) in prompt | - |
 
 ## CI support
 

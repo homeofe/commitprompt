@@ -7,6 +7,7 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { parseDiff } from '../diff-parser.js';
 import { buildPrompt } from '../prompt-builder.js';
+import { extractReadmeIntro } from '../context-reader.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const fixturesDir = join(__dirname, '../fixtures');
@@ -123,5 +124,69 @@ describe('buildPrompt - changelog mode (docs-only.diff)', () => {
   it('does not include PR-specific instructions', () => {
     const prompt = buildPrompt(parsed, docsOnlyDiff, 'changelog');
     expect(prompt).not.toContain('Pull Request description');
+  });
+});
+
+describe('buildPrompt - context parameter', () => {
+  const parsed = parseDiff(bugfixDiff);
+
+  it('includes a ## Context section when context is provided', () => {
+    const prompt = buildPrompt(parsed, bugfixDiff, 'commit', 120, 'Project: my-app\nA tool for things.');
+    expect(prompt).toContain('## Context');
+    expect(prompt).toContain('Project: my-app');
+    expect(prompt).toContain('A tool for things.');
+  });
+
+  it('places ## Context between header and ## Changed Files', () => {
+    const prompt = buildPrompt(parsed, bugfixDiff, 'commit', 120, 'Project: test');
+    const headerIdx = prompt.indexOf('# Commit Message Request');
+    const contextIdx = prompt.indexOf('## Context');
+    const filesIdx = prompt.indexOf('## Changed Files');
+    expect(contextIdx).toBeGreaterThan(headerIdx);
+    expect(contextIdx).toBeLessThan(filesIdx);
+  });
+
+  it('omits ## Context when context is undefined', () => {
+    const prompt = buildPrompt(parsed, bugfixDiff, 'commit', 120, undefined);
+    expect(prompt).not.toContain('## Context');
+  });
+
+  it('omits ## Context when context is empty string', () => {
+    const prompt = buildPrompt(parsed, bugfixDiff, 'commit', 120, '');
+    expect(prompt).not.toContain('## Context');
+  });
+});
+
+describe('extractReadmeIntro', () => {
+  it('extracts the first paragraph after the title', () => {
+    const readme = '# My Project\n\nThis is the intro paragraph.\n\n## Installation\n';
+    expect(extractReadmeIntro(readme)).toBe('This is the intro paragraph.');
+  });
+
+  it('handles multi-line first paragraph', () => {
+    const readme = '# My Project\n\nFirst line.\nSecond line.\n\n## Next\n';
+    expect(extractReadmeIntro(readme)).toBe('First line. Second line.');
+  });
+
+  it('returns empty string when README has no paragraph', () => {
+    const readme = '# Title Only\n';
+    expect(extractReadmeIntro(readme)).toBe('');
+  });
+
+  it('works without a title line', () => {
+    const readme = 'This is a README without a title heading.\n\n## Section\n';
+    expect(extractReadmeIntro(readme)).toBe('This is a README without a title heading.');
+  });
+
+  it('stops at the next heading', () => {
+    const readme = '# Title\n\nIntro text.\n## Next heading\nMore text.\n';
+    expect(extractReadmeIntro(readme)).toBe('Intro text.');
+  });
+
+  it('extracts the real commitprompt README intro', () => {
+    const realReadme = readFileSync(join(fixturesDir, '../../README.md'), 'utf-8');
+    const intro = extractReadmeIntro(realReadme);
+    expect(intro).toContain('git diff');
+    expect(intro.length).toBeGreaterThan(10);
   });
 });

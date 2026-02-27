@@ -6,7 +6,8 @@
 | ---------------------- | ----------- | ----------------------------------------- |
 | diff-reader.ts         | (Verified)  | Unit-tested implicitly via integration tests |
 | diff-parser.ts         | (Verified)  | 14 direct tests on real fixture diffs     |
-| prompt-builder.ts      | (Verified)  | 12 direct tests on parsed real diffs      |
+| prompt-builder.ts      | (Verified)  | 16 direct tests on parsed real diffs      |
+| context-reader.ts      | (Verified)  | 6 direct tests on extractReadmeIntro      |
 | index.ts (CLI)         | (Verified)  | E2E test on real staged change            |
 | changeType heuristics  | (Assumed)   | Works on 4 fixtures; edge cases not exhaustive |
 | trimDiff logic         | (Verified)  | Tested with small maxLines in prompt-builder test |

@@ -4,10 +4,10 @@
  * Reads a git diff and formats it as a structured AI prompt.
  */
 import { program } from 'commander';
-import { readFileSync } from 'fs';
 import { readStagedDiff, readDiffFile } from './diff-reader.js';
 import { parseDiff } from './diff-parser.js';
 import { buildPrompt, type Mode } from './prompt-builder.js';
+import { readRepoContext } from './context-reader.js';
 
 program
   .name('commitprompt')
@@ -24,7 +24,7 @@ program
   .option('--staged', 'Explicitly read from git diff --staged (default behavior)')
   .option(
     '--context',
-    'Include repo context (package.json name, README intro) - reserved for future use'
+    'Include repo context (package.json name, README intro) in the prompt'
   )
   .parse(process.argv);
 
@@ -45,18 +45,8 @@ if (!validModes.includes(opts.mode as Mode)) {
 }
 const mode = opts.mode as Mode;
 
-// Optional context: read package.json name if --context flag is set
-let contextNote = '';
-if (opts.context) {
-  try {
-    const pkg = JSON.parse(readFileSync('package.json', 'utf-8')) as { name?: string };
-    if (pkg.name) {
-      contextNote = `<!-- Repo: ${pkg.name} -->`;
-    }
-  } catch {
-    // Ignore missing package.json - context is optional
-  }
-}
+// Optional context: read package.json name and README intro if --context flag is set
+const contextString = opts.context ? readRepoContext() : undefined;
 
 // Read the diff
 let raw: string;
@@ -74,7 +64,6 @@ try {
 
 // Parse and build prompt
 const parsed = parseDiff(raw);
-const prompt = buildPrompt(parsed, raw, mode);
+const prompt = buildPrompt(parsed, raw, mode, 120, contextString);
 
-const output = contextNote ? `${contextNote}\n\n${prompt}` : prompt;
-process.stdout.write(output + '\n');
+process.stdout.write(prompt + '\n');

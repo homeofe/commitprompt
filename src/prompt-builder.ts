@@ -13,19 +13,27 @@ export type Mode = 'commit' | 'pr' | 'changelog';
  * @param raw - Raw diff string (will be trimmed)
  * @param mode - Output mode: commit, pr, or changelog
  * @param maxLines - Maximum lines to include in the diff summary
+ * @param context - Optional repo context string (project name, README intro)
  */
 export function buildPrompt(
   diff: ParsedDiff,
   raw: string,
   mode: Mode,
-  maxLines = 120
+  maxLines = 120,
+  context?: string
 ): string {
   const header = buildHeader(mode);
-  const filesSection = buildFilesSection(diff);
-  const diffSummary = buildDiffSummary(raw, maxLines);
-  const instructions = buildInstructions(mode);
+  const sections: string[] = [header];
 
-  return [header, filesSection, diffSummary, instructions].join('\n\n');
+  if (context) {
+    sections.push(`## Context\n${context}`);
+  }
+
+  sections.push(buildFilesSection(diff));
+  sections.push(buildDiffSummary(raw, maxLines));
+  sections.push(buildInstructions(mode));
+
+  return sections.join('\n\n');
 }
 
 function buildHeader(mode: Mode): string {
