@@ -14,8 +14,9 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint src/",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "prepublishOnly": "npm run lint && npm run build && npm test"
+    "test": "vitest run",
+    "prepublishOnly": "npm run lint && npm run build && npm test",
+    "test:watch": "vitest"
   },
   "keywords": [
     "git",
@@ -37,33 +38,11 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/jest": "^29.5.12",
     "@types/node": "^22.0.0",
     "eslint": "^10.0.2",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.1.5",
     "typescript": "^5.4.0",
-    "typescript-eslint": "^8.56.1"
-  },
-  "jest": {
-    "preset": "ts-jest/presets/default-esm",
-    "extensionsToTreatAsEsm": [
-      ".ts"
-    ],
-    "testMatch": [
-      "**/src/__tests__/**/*.test.ts"
-    ],
-    "moduleNameMapper": {
-      "^(\\.{1,2}/.*)\\.js$": "$1"
-    },
-    "transform": {
-      "^.+\\.tsx?$": [
-        "ts-jest",
-        {
-          "useESM": true
-        }
-      ]
-    }
+    "typescript-eslint": "^8.56.1",
+    "vitest": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"
