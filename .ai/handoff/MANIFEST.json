@@ -83,9 +83,19 @@
       "created": "2026-03-02T03:48:11.828Z",
       "github_issue": 5,
       "github_repo": "elvatis/commitprompt"
+    },
+    "T-009": {
+      "title": "[CI] Failed run 22561942763 — TypeScript: missing test type definitions (describe/it/expect)",
+      "status": "ready",
+      "priority": "medium",
+      "depends_on": [],
+      "created": "2026-03-07T06:58:24.122Z",
+      "notes": "Automated CI triage created by Akido.\n\nRepository: elvatis/commitprompt\nFailed run: 22561942763\nRun URL: https://github.com/elvatis/commitprompt/actions/runs/22561942763\n\nSummary:\nTypeScript: missing test type definitions (describe/it/expect)\n\nRelevant log excerpts:\n- See the Actions run for full logs: https://github.com/elvatis/commitprompt/actions/runs/22561942763\n\nSuggested next steps:\n- Reproduce locally: run the CI steps (install deps, tsc, lint, tests).\n- Apply the suggested fix from the a",
+      "github_issue": 6,
+      "github_repo": "elvatis/commitprompt"
     }
   },
-  "next_task_id": 9,
+  "next_task_id": 10,
   "files": {
     "NEXT_ACTIONS.md": {
       "updated": "2026-02-28T00:00:00Z",
